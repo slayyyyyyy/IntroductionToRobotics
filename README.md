@@ -11,14 +11,14 @@ Had to create the github repository and give access to our teacher and TAs.
 ## Homework 2
 
 Component requirements: 
-• RGB LED (At least 1)
-• Potentiometers (At least 3)
-• Resistors and wires as needed
+• RGB LED (At least 1) <br />
+• Potentiometers (At least 3) <br />
+• Resistors and wires as needed <br />
 
 Tasks:
-• Technical Task : Use of separate potentiometers for controlling each color of the RGB LED: Red, Green, and Blue. This control must leverage digital electronics. Specifically, I need to read the potentiometer’s value with Arduino and then write a mapped value to the LED pins.
-• Publishing Task : Update github repo with the code and update README.md with the task requirements, pics of the setup and a link to a video showing its functionality
-• Coding Task : Clean, well-structured code, avoidance of "magic numbers", use of constants with meaningful names.
+• Technical Task : Use of separate potentiometers for controlling each color of the RGB LED: Red, Green, and Blue. This control must leverage digital electronics. Specifically, I need to read the potentiometer’s value with Arduino and then write a mapped value to the LED pins. <br />
+• Publishing Task : Update github repo with the code and update README.md with the task requirements, pics of the setup and a link to a video showing its functionality. <br />
+• Coding Task : Clean, well-structured code, avoidance of "magic numbers", use of constants with meaningful names. <br />
 
 Using 3 potentiometers, a RGB LED, 3 resistors and a whole bunch of wires, I finally put together the following setup:
 
