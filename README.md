@@ -22,7 +22,7 @@ Tasks: <br />
 
 Using 3 potentiometers, a RGB LED, 3 resistors and a whole bunch of wires, I finally put together the following setup:
 
-![6d572bca-4b37-4bab-aaa9-1a03a4925385](https://github.com/slayyyyyyy/IntroductionToRobotics/assets/104028747/d4ae4e8f-c1e3-4123-9f42-66d307e6f161)
+![9bf9d171-9e07-4458-bed2-4e188e162558](https://github.com/slayyyyyyy/IntroductionToRobotics/assets/104028747/f81550ee-4a0b-4f3f-baf9-e2bc4450cfe1)
 
 ![982f6a10-990e-4238-9dba-8cfa2499f279](https://github.com/slayyyyyyy/IntroductionToRobotics/assets/104028747/c5d4ee81-41a1-446a-9537-e5558312e507)
 
