@@ -28,3 +28,4 @@ Using 3 potentiometers, a RGB LED, 3 resistors and a whole bunch of wires, I fin
 
 Using the 3 potentiometers, one can control and adjust the brightness of each LED color. The video accessed through this Google Drive link will show a demonstration of what the circuit and the code provided in the repository do.
 
+https://drive.google.com/file/d/1Dxou-CeesZ6c_ggzSLRYmoL9Te8A52zk/view?usp=share_link
