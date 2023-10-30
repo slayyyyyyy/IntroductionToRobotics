@@ -4,7 +4,7 @@ Made for my 3rd year Robotics course at University of Bucharest. This repository
 
 End goal: building a real life BMO :)
 
-#Contents: <br/>
+# Contents: <br/>
 [Homework 1](#homework-1) <br/>
 [Homework 2](#homework-2) <br/>
 [Homework 3](#homework-3) <br/>
