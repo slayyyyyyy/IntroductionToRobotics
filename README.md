@@ -7,7 +7,7 @@ End goal: building a real life BMO :)
 #Contents: <br/>
 [Homework 1](#homework-1) <br/>
 [Homework 2](#homework-2) <br/>
-[Homeowork 3](#homework-3) <br/>
+[Homework 3](#homework-3) <br/>
 
 ## Homework 1
 
