@@ -9,10 +9,11 @@ End goal: building a real life BMO :)
 [Homework 2](#homework-2) <br/>
 [Homework 3](#homework-3) <br/>
 
-## Homework 1
+<details>
+<summary>## Homework 1</summary>
 
 Had to create the github repository and give access to our teacher and TAs. 
-
+</details>
 ## Homework 2
 
 Component requirements: <br />
