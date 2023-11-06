@@ -13,7 +13,7 @@ End goal: building a real life BMO :)
 
 Had to create the github repository and give access to our teacher and TAs.
 
-[Back to contents](#contents-:)
+[Back to contents](#contents)
 
 ## Homework 2
 
@@ -37,7 +37,7 @@ Using the 3 potentiometers, one can control and adjust the brightness of each LE
 
 Fun and easy task! :)
 
-[Back to contents](#contents-:)
+[Back to contents](#contents)
 
 ## Homework 3
 
@@ -63,4 +63,4 @@ Pressing the buttons, one can "call" the elevator to the desired floor. The buzz
 
 Challenging task and definitely harder !
 
-[Back to contents](#contents-:)
+[Back to contents](#contents)
