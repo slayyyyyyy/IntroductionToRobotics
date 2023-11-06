@@ -7,7 +7,8 @@ End goal: building a real life BMO :)
 # Contents: <br/>
 [Homework 1](#homework-1) <br/>
 [Homework 2](#homework-2) <br/>
-[Homework 3](#homework-3)
+[Homework 3](#homework-3) <br/>
+[Homework 4](#homework-4) <br/>
  
 ## Homework 1
 
@@ -64,3 +65,23 @@ Pressing the buttons, one can "call" the elevator to the desired floor. The buzz
 Challenging task and definitely harder !
 
 [Back to contents](#contents-)
+
+## Homework 4
+
+This  assignment  involves  drawing on a 7 segment display with a joystick. 
+
+Component requirements: <br/>
+•7 segment display <br/>
+•Joystick (1) <br/>
+•Resistors and wires as needed <br/>
+
+Tasks: <br/>
+• Technical Task : The initial position should be on the DP. The current position always blinks (irrespective of the fact that the segment is on or off). Use the joystick to move from one position to neighbors (see table for corresponding movement). Short pressing the button toggles the segment state from ON to OFF or from OFF to ON. Long pressing the button resets the entire display by turning all the segments OFF and moving the current position to the decimal point. <br/>
+![image](https://github.com/slayyyyyyy/IntroductionToRobotics/assets/104028747/d3e62057-6c99-4068-a507-47a7ee1248c8)
+• Publishing Task : Update github repo with the code and update README.md with the task requirements, pics of the setup and a link to a video showing its functionality. <br />
+• Coding Task : Clean, well-structured code, avoidance of "magic numbers", use of constants with meaningful names, use of <b>millis()</b> or <b>micros()</b>, using <b>interrupts</b> instead of delay(), avoidance of repetitive structures. <br />
+
+The physical setup is represented in the following pictures:
+![image](https://github.com/slayyyyyyy/IntroductionToRobotics/assets/104028747/3f7a0b3b-16f0-4bdb-89b3-1c08c5e6c6bd)
+
+![image](https://github.com/slayyyyyyy/IntroductionToRobotics/assets/104028747/53a10073-4cc3-46a5-ab8f-a5de7f66befb)
