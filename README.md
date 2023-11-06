@@ -77,11 +77,16 @@ Component requirements: <br/>
 
 Tasks: <br/>
 • Technical Task : The initial position should be on the DP. The current position always blinks (irrespective of the fact that the segment is on or off). Use the joystick to move from one position to neighbors (see table for corresponding movement). Short pressing the button toggles the segment state from ON to OFF or from OFF to ON. Long pressing the button resets the entire display by turning all the segments OFF and moving the current position to the decimal point. <br/>
-![image](https://github.com/slayyyyyyy/IntroductionToRobotics/assets/104028747/d3e62057-6c99-4068-a507-47a7ee1248c8)
+![image](https://github.com/slayyyyyyy/IntroductionToRobotics/assets/104028747/d3e62057-6c99-4068-a507-47a7ee1248c8) <br/>
 • Publishing Task : Update github repo with the code and update README.md with the task requirements, pics of the setup and a link to a video showing its functionality. <br />
 • Coding Task : Clean, well-structured code, avoidance of "magic numbers", use of constants with meaningful names, use of <b>millis()</b> or <b>micros()</b>, using <b>interrupts</b> instead of delay(), avoidance of repetitive structures. <br />
 
 The physical setup is represented in the following pictures:
-![image](https://github.com/slayyyyyyy/IntroductionToRobotics/assets/104028747/3f7a0b3b-16f0-4bdb-89b3-1c08c5e6c6bd)
 
-![image](https://github.com/slayyyyyyy/IntroductionToRobotics/assets/104028747/53a10073-4cc3-46a5-ab8f-a5de7f66befb)
+![image](https://github.com/slayyyyyyy/IntroductionToRobotics/assets/104028747/a2157dac-8258-4dd5-afc7-6989b60a7bcf)
+
+![image](https://github.com/slayyyyyyy/IntroductionToRobotics/assets/104028747/8b91ea31-9740-4b95-960c-7c8069eb9356)
+
+![image](https://github.com/slayyyyyyy/IntroductionToRobotics/assets/104028747/b735b11e-b80c-4960-b51f-75f646c04aa2)
+
+
