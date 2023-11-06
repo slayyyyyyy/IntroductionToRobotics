@@ -13,11 +13,7 @@ End goal: building a real life BMO :)
   
 ## Homework 1
 
-</summary>
-
-<details>
 Had to create the github repository and give access to our teacher and TAs. 
-</details>
 
 ## Homework 2
 
