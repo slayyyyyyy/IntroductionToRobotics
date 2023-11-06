@@ -11,7 +11,9 @@ End goal: building a real life BMO :)
  
 ## Homework 1
 
-Had to create the github repository and give access to our teacher and TAs. 
+Had to create the github repository and give access to our teacher and TAs.
+
+[Back to contents](#contents)
 
 ## Homework 2
 
@@ -34,6 +36,8 @@ Using 3 potentiometers, a RGB LED, 3 resistors and a whole bunch of wires, I fin
 Using the 3 potentiometers, one can control and adjust the brightness of each LED color. The video accessed through this Google Drive link will show a demonstration of what the circuit and the code provided in the repository do: [RGB control with 3 potentiometers](https://drive.google.com/file/d/1Dxou-CeesZ6c_ggzSLRYmoL9Te8A52zk/view?usp=share_link)
 
 Fun and easy task! :)
+
+[Back to contents](#contents)
 
 ## Homework 3
 
@@ -58,3 +62,5 @@ After figuring out how to setup the 4 LEDs, the 3 buttons and the buzzer, the fo
 Pressing the buttons, one can "call" the elevator to the desired floor. The buzzer will make a short, loud sound to announce the elevator doors closing and then a continous "buzz" to signal that the elevator is moving between floors. Each LED will light up when the elevator reaches its floor, no matter if it stops there or if it keeps moving. The red LED will keep blinking as long as the elevator moves and it completely turns off when the lift is stationing. When the desired floor is reached, the buzzer will "beep" 3 times to announce it. The following video presents a demonstration of this implementation: [Elevator simulator](https://drive.google.com/file/d/1r7enTS17K0I_EYG-8yfubzbX0qP36-ov/view?usp=sharing)
 
 Challenging task and definitely harder !
+
+[Back to contents](#contents)
