@@ -9,7 +9,6 @@ End goal: building a real life BMO :)
 [Homework 2](#homework-2) <br/>
 [Homework 3](#homework-3) <br/>
 
-<summary>
   
 ## Homework 1
 
