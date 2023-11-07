@@ -13,7 +13,7 @@ const int pinDP = 4;
 
 const int segSize = 8;
 
-bool commonAnode = false;
+bool commonAnode = false; // modify if true
 
 bool joyMoved = false;
 const int minThreshold = 400;
@@ -32,22 +32,25 @@ unsigned long buttonPressTime = 0;
 
 unsigned long lastBlinkMillis = 0;
 const unsigned long blinkInterval = 200;
-bool canBlink = true;
+//bool canBlink = true;
 
 
 int segments[segSize] = {
   pinA, pinB, pinC, pinD, pinE, pinF, pinG, pinDP
 };
 
-bool segmentsState[segSize] = {
+bool segmentsState[segSize] = { //initializes segment states (used for blinking)
   LOW, LOW, LOW, LOW, LOW, LOW, LOW, LOW
 };
 
-bool segmentStateOnButtonPress[segSize] = { 
+bool segmentStateOnButtonPress[segSize] = { // initializes segment states (used for when the button is pressed)
   LOW, LOW, LOW, LOW, LOW, LOW, LOW, LOW 
 };
 
+
 void setup() {
+  /* initializes the pins and their initial states for controlling the 7 segments display,
+ with support for both common anode and common cathode displays. */
   for (int i = 0; i < segSize; i++) {
     pinMode(segments[i], OUTPUT);
     segmentsState[i] = LOW;
@@ -69,7 +72,7 @@ void setup() {
 void loop() {
   xValue = analogRead(pinX);
   yValue = analogRead(pinY);
-    blink(activeSegment);
+  blink(activeSegment);
   
   if (xValue < minThreshold && joyMoved == false) {
     activeSegment = nextSegment(activeSegment, 'L');
@@ -92,7 +95,7 @@ void loop() {
   }
 
 
-  for (int i = 0; i < segSize; i++) {
+  for (int i = 0; i < segSize; i++) {   //updates the state of the segments depending on whether the button was pressed or not, EXCEPT for the active one
     if (i != getSegmentIndex(activeSegment)) {
       digitalWrite(segments[i], segmentStateOnButtonPress[i]);
     }
@@ -100,21 +103,21 @@ void loop() {
 
   swState = digitalRead(pinSw);
   if (swState != lastSwState) {
-    if (swState == LOW) {
+    if (swState == LOW) { //means the button was pressed
       buttonPressTime = millis();
     } else {
       if (millis() - buttonPressTime < 1000) {
         buttonIsPressed = !buttonIsPressed;
-        canBlink = false;
+        //canBlink = false; 
         int index = getSegmentIndex(activeSegment);
       segmentStateOnButtonPress[index] = !segmentStateOnButtonPress[index];
       digitalWrite(segments[index], segmentStateOnButtonPress[index]);
       } else {
-        for (int i = 0; i < segSize; i++) {
+        for (int i = 0; i < segSize; i++) { //resets all the segment and brings the active segment back to DP
           digitalWrite(segments[i], LOW);
         }
         activeSegment = pinDP;
-        canBlink = true;
+        //canBlink = true;
   for (int i = 0; i < segSize; i++) {
     segmentsState[i] = LOW;
     segmentStateOnButtonPress[i] = LOW;
@@ -124,13 +127,14 @@ void loop() {
     }
     lastSwState = swState;
   }
-  if(canBlink == true){
-    blink(activeSegment);
-  }
+  //if(canBlink == true){
+   // blink(activeSegment);
+  //}
 }
 
 
 void blink(int segment) {
+  /*makes the segments blink when selected, no matter if they're on or off*/
   unsigned long currentBlinkMillis = millis();
   static unsigned long previousBlinkMillis = 0;
 
@@ -143,10 +147,7 @@ void blink(int segment) {
 }
 
 int nextSegment(int segment, char direction) {
-  //if(isBlinking == true)
-   // digitalWrite(activeSegment, LOW);
-   //else
-     // isBlinking = true;
+/*moves the joystick to the next segment according to the table provided*/
   switch (direction) {
     case 'U':
       if (segment == segments[1] || segment == segments[5] || segment == segments[6]) {
@@ -193,7 +194,7 @@ int nextSegment(int segment, char direction) {
   }
 }
 
-int getSegmentIndex(int segment) {
+int getSegmentIndex(int segment) { //gets the current index
   for (int i = 0; i < segSize; i++) {
     if (segments[i] == segment)
       return i;
