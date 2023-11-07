@@ -21,8 +21,8 @@ const int maxThreshold = 600;
 int xValue = 0;
 int yValue = 0;
 
-bool swState = LOW;
-bool lastSwState = LOW;
+bool swState = HIGH;
+bool lastSwState = HIGH;
 
 int activeSegment = pinDP;
 
