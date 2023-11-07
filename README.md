@@ -90,3 +90,8 @@ The physical setup is represented in the following pictures:
 ![image](https://github.com/slayyyyyyy/IntroductionToRobotics/assets/104028747/b735b11e-b80c-4960-b51f-75f646c04aa2)
 
 
+A demonstration of how this works can be found here: 7 segments display drawing(https://drive.google.com/file/d/1xeKaUdoSJDZcFFWQKgC5CfdPgCAyIZon/view?usp=drive_link)
+
+Harder task!
+
+[Back to contents](#contents-)
