@@ -32,7 +32,7 @@ unsigned long buttonPressTime = 0;
 
 unsigned long lastBlinkMillis = 0;
 const unsigned long blinkInterval = 200;
-//bool canBlink = true;
+
 
 
 int segments[segSize] = {
@@ -113,23 +113,17 @@ void loop() {
       segmentStateOnButtonPress[index] = !segmentStateOnButtonPress[index];
       digitalWrite(segments[index], segmentStateOnButtonPress[index]);
       } else {
-        for (int i = 0; i < segSize; i++) { //resets all the segment and brings the active segment back to DP
-          digitalWrite(segments[i], LOW);
-        }
         activeSegment = pinDP;
-        //canBlink = true;
-  for (int i = 0; i < segSize; i++) {
-    segmentsState[i] = LOW;
-    segmentStateOnButtonPress[i] = LOW;
-    digitalWrite(segments[i], segmentsState[i]);
-  }
+        for (int i = 0; i < segSize; i++) { //resets all the segment and brings the active segment back to DP
+          segmentsState[i] = LOW;
+          segmentStateOnButtonPress[i] = LOW;
+          digitalWrite(segments[i], segmentsState[i]);
+        }
       }
     }
     lastSwState = swState;
   }
-  //if(canBlink == true){
-   // blink(activeSegment);
-  //}
+
 }
 
 
