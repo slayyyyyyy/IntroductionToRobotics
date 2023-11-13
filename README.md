@@ -30,7 +30,7 @@ Tasks: <br />
 
 Using 3 potentiometers, a RGB LED, 3 resistors and a whole bunch of wires, I finally put together the following setup:
 
-<img src="https://github.com/slayyyyyyy/IntroductionToRobotics/assets/104028747/f81550ee-4a0b-4f3f-baf9-e2bc4450cfe1 " width = "100" height = "100">
+<img src="https://github.com/slayyyyyyy/IntroductionToRobotics/assets/104028747/f81550ee-4a0b-4f3f-baf9-e2bc4450cfe1 " width = "300" height = "300">
 
 ![982f6a10-990e-4238-9dba-8cfa2499f279](https://github.com/slayyyyyyy/IntroductionToRobotics/assets/104028747/c5d4ee81-41a1-446a-9537-e5558312e507)
 
