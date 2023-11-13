@@ -32,7 +32,7 @@ Using 3 potentiometers, a RGB LED, 3 resistors and a whole bunch of wires, I fin
 
 <img src="https://github.com/slayyyyyyy/IntroductionToRobotics/assets/104028747/f81550ee-4a0b-4f3f-baf9-e2bc4450cfe1 " width = "450" height = "400">
 
-<img src=" https://github.com/slayyyyyyy/IntroductionToRobotics/assets/104028747/c5d4ee81-41a1-446a-9537-e5558312e507" width = "450" height = "400">
+<img src="https://github.com/slayyyyyyy/IntroductionToRobotics/assets/104028747/c5d4ee81-41a1-446a-9537-e5558312e507" width = "450" height = "400">
 
 
 Using the 3 potentiometers, one can control and adjust the brightness of each LED color. The video accessed through this Google Drive link will show a demonstration of what the circuit and the code provided in the repository do: [RGB control with 3 potentiometers](https://drive.google.com/file/d/1Dxou-CeesZ6c_ggzSLRYmoL9Te8A52zk/view?usp=share_link)
