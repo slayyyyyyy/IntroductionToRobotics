@@ -58,9 +58,9 @@ Tasks: <br/>
 • Coding Task : Clean, well-structured code, avoidance of "magic numbers", use of constants with meaningful names. <br />
 
 After figuring out how to setup the 4 LEDs, the 3 buttons and the buzzer, the following circuit came to reality. For my elevator, I choose to use green LEDs for elevator floors and a red LED to signal the movement of the elevator:
-![WhatsApp Image 2023-10-30 at 10 23 35 PM](https://github.com/slayyyyyyy/IntroductionToRobotics/assets/104028747/06a42660-d216-463a-9fb2-b63668fdec49)
+<img src="https://github.com/slayyyyyyy/IntroductionToRobotics/assets/104028747/06a42660-d216-463a-9fb2-b63668fdec49" width = "450" height = "400">
 
-![WhatsApp Image 2023-10-30 at 10 23 39 PM](https://github.com/slayyyyyyy/IntroductionToRobotics/assets/104028747/437c3110-14a5-4fc0-8455-3889b05159fb)
+<img src="https://github.com/slayyyyyyy/IntroductionToRobotics/assets/104028747/437c3110-14a5-4fc0-8455-3889b05159fb" width = "450" height = "400">
 
 Pressing the buttons, one can "call" the elevator to the desired floor. The buzzer will make a short, loud sound to announce the elevator doors closing and then a continous "buzz" to signal that the elevator is moving between floors. Each LED will light up when the elevator reaches its floor, no matter if it stops there or if it keeps moving. The red LED will keep blinking as long as the elevator moves and it completely turns off when the lift is stationing. When the desired floor is reached, the buzzer will "beep" 3 times to announce it. The following video presents a demonstration of this implementation: [Elevator simulator](https://drive.google.com/file/d/1r7enTS17K0I_EYG-8yfubzbX0qP36-ov/view?usp=sharing)
 
