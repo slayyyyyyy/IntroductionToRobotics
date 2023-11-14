@@ -58,6 +58,7 @@ Tasks: <br/>
 • Coding Task : Clean, well-structured code, avoidance of "magic numbers", use of constants with meaningful names. <br />
 
 After figuring out how to setup the 4 LEDs, the 3 buttons and the buzzer, the following circuit came to reality. For my elevator, I choose to use green LEDs for elevator floors and a red LED to signal the movement of the elevator:
+
 <img src="https://github.com/slayyyyyyy/IntroductionToRobotics/assets/104028747/06a42660-d216-463a-9fb2-b63668fdec49" width = "450" height = "400">
 
 <img src="https://github.com/slayyyyyyy/IntroductionToRobotics/assets/104028747/437c3110-14a5-4fc0-8455-3889b05159fb" width = "450" height = "400">
@@ -85,11 +86,11 @@ Tasks: <br/>
 
 The physical setup is represented in the following pictures:
 
-![image](https://github.com/slayyyyyyy/IntroductionToRobotics/assets/104028747/a2157dac-8258-4dd5-afc7-6989b60a7bcf)
+<img src="https://github.com/slayyyyyyy/IntroductionToRobotics/assets/104028747/a2157dac-8258-4dd5-afc7-6989b60a7bcf" width = "450" height = "400">
 
-![image](https://github.com/slayyyyyyy/IntroductionToRobotics/assets/104028747/8b91ea31-9740-4b95-960c-7c8069eb9356)
+<img src="https://github.com/slayyyyyyy/IntroductionToRobotics/assets/104028747/8b91ea31-9740-4b95-960c-7c8069eb9356" width = "450" height = "400">
 
-![image](https://github.com/slayyyyyyy/IntroductionToRobotics/assets/104028747/b735b11e-b80c-4960-b51f-75f646c04aa2)
+<img src="https://github.com/slayyyyyyy/IntroductionToRobotics/assets/104028747/b735b11e-b80c-4960-b51f-75f646c04aa2" width = "450" height = "400">
 
 
 A demonstration of how this works can be found here: [7 segments display drawing](https://drive.google.com/file/d/1xeKaUdoSJDZcFFWQKgC5CfdPgCAyIZon/view?usp=drive_link)
@@ -124,11 +125,11 @@ Tasks: <br/>
 
 The physical setup is represented in the following pictures:
 
-![WhatsApp Image 2023-11-14 at 1 32 30 PM (2)](https://github.com/slayyyyyyy/IntroductionToRobotics/assets/104028747/b7fb22d4-5c31-473b-b4b0-7d26fbeb0dc2)
+<img src="https://github.com/slayyyyyyy/IntroductionToRobotics/assets/104028747/b7fb22d4-5c31-473b-b4b0-7d26fbeb0dc2" width = "450" height = "400">
 
-![WhatsApp Image 2023-11-14 at 1 32 30 PM (3)](https://github.com/slayyyyyyy/IntroductionToRobotics/assets/104028747/542ca7e8-4d1c-40cf-b284-a42ac2fe7990)
+<img src="https://github.com/slayyyyyyy/IntroductionToRobotics/assets/104028747/542ca7e8-4d1c-40cf-b284-a42ac2fe7990" width = "450" height = "400">
 
-![WhatsApp Image 2023-11-14 at 1 32 30 PM (1)](https://github.com/slayyyyyyy/IntroductionToRobotics/assets/104028747/ded374ff-1187-4f0e-b1a8-1ca6f1088a00)
+<img src="https://github.com/slayyyyyyy/IntroductionToRobotics/assets/104028747/ded374ff-1187-4f0e-b1a8-1ca6f1088a00" width = "450" height = "400">
 
 A demonstration of how this works can be found here: [Stopwatch timer](https://drive.google.com/drive/folders/1nxeEOL7xyXRTufGuW4njaviQLgLu5JVY?usp=sharing)
 
