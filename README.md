@@ -9,6 +9,7 @@ End goal: building a real life BMO :)
 [Homework 2](#homework-2) <br/>
 [Homework 3](#homework-3) <br/>
 [Homework 4](#homework-4) <br/>
+[Homework 5](#homework-5) <br/>
  
 ## Homework 1
 
@@ -94,5 +95,39 @@ The physical setup is represented in the following pictures:
 A demonstration of how this works can be found here: [7 segments display drawing](https://drive.google.com/file/d/1xeKaUdoSJDZcFFWQKgC5CfdPgCAyIZon/view?usp=drive_link)
 
 Harder task!
+
+[Back to contents](#contents-)
+
+## Homework 5
+
+This  assignment  involves  implementing a stopwatch on a 4 digit 7 segment display.
+
+Component requirements: <br/>
+•4 digit 7 segment display <br/>
+•Buttons (3) <br/>
+•Resistors and wires as needed <br/>
+
+Tasks: <br/>
+• Technical Task : The starting value of the 4 digit 7 segment display shouldbe ”000.0”.  The buttons should have the following functionalities:<br/>
+   – Button 1:  Start / pause. <br/>
+   –Button  2:   Reset  (if  in  pause  mode).   Reset  saved  laps  (if  in  lap viewing mode). <br/>
+   –Button 3:  Save lap (if in counting mode), cycle through last saved laps (up to 4 laps). <br/>
+  Workflow: <br/>
+  1.  Display shows ”000.0”.  When pressing the Start button, the timer should start. <br/>
+  2.  During timer counter, each press of the the lap button, it should save  that  timer’s  value  in  memory  (not  persistent,  it  is  OK  to  be deleted upon reset), up to 4 laps; pressing the 5th  time  should  override  the  1st  saved  one.   If  the  reset button is pressed while the timer works, nothing happens. If the pause button is pressed, the timer stops. <br/>
+  3. In Pause Mode, the lap flag button doesn’t work anymore. Pressing the reset button resets it to 000.0. <br/>
+  4. After reset, the flag buttons can now be pressed to cycle through the lap times.  Each press of the the flag button, it takes the display to the next saved lap.  Pressing it continuously should cycle through it continuously.  Pressing the reset button while in this state resets all of the flags and takes the timer back to ”000.0”. <br/>
+• Publishing Task : Update github repo with the code and update README.md with the task requirements, pics of the setup and a link to a video showing its functionality. <br />
+• Coding Task : Clean, well-structured code, avoidance of "magic numbers", use of constants with meaningful names, use of <b>millis()</b> or <b>micros()</b>, using <b>interrupts</b> instead of delay(), avoidance of repetitive structures. <br />
+
+The physical setup is represented in the following pictures:
+
+![WhatsApp Image 2023-11-14 at 1 32 30 PM (2)](https://github.com/slayyyyyyy/IntroductionToRobotics/assets/104028747/b7fb22d4-5c31-473b-b4b0-7d26fbeb0dc2)
+
+![WhatsApp Image 2023-11-14 at 1 32 30 PM (3)](https://github.com/slayyyyyyy/IntroductionToRobotics/assets/104028747/542ca7e8-4d1c-40cf-b284-a42ac2fe7990)
+
+![WhatsApp Image 2023-11-14 at 1 32 30 PM (1)](https://github.com/slayyyyyyy/IntroductionToRobotics/assets/104028747/ded374ff-1187-4f0e-b1a8-1ca6f1088a00)
+
+A demonstration of how this works can be found here: [Stopwatch timer](https://drive.google.com/drive/folders/1nxeEOL7xyXRTufGuW4njaviQLgLu5JVY?usp=sharing)
 
 [Back to contents](#contents-)
