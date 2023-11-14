@@ -117,6 +117,8 @@ Tasks: <br/>
   2.  During timer counter, each press of the the lap button, it should save  that  timer’s  value  in  memory  (not  persistent,  it  is  OK  to  be deleted upon reset), up to 4 laps; pressing the 5th  time  should  override  the  1st  saved  one.   If  the  reset button is pressed while the timer works, nothing happens. If the pause button is pressed, the timer stops. <br/>
   3. In Pause Mode, the lap flag button doesn’t work anymore. Pressing the reset button resets it to 000.0. <br/>
   4. After reset, the flag buttons can now be pressed to cycle through the lap times.  Each press of the the flag button, it takes the display to the next saved lap.  Pressing it continuously should cycle through it continuously.  Pressing the reset button while in this state resets all of the flags and takes the timer back to ”000.0”. <br/>
+
+  
 • Publishing Task : Update github repo with the code and update README.md with the task requirements, pics of the setup and a link to a video showing its functionality. <br />
 • Coding Task : Clean, well-structured code, avoidance of "magic numbers", use of constants with meaningful names, use of <b>millis()</b> or <b>micros()</b>, using <b>interrupts</b> instead of delay(), avoidance of repetitive structures. <br />
 
