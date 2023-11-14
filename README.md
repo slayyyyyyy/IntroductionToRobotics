@@ -86,11 +86,11 @@ Tasks: <br/>
 
 The physical setup is represented in the following pictures:
 
-<img src="https://github.com/slayyyyyyy/IntroductionToRobotics/assets/104028747/a2157dac-8258-4dd5-afc7-6989b60a7bcf" width = "450" height = "400">
+<img src="https://github.com/slayyyyyyy/IntroductionToRobotics/assets/104028747/a2157dac-8258-4dd5-afc7-6989b60a7bcf" width = "500" height = "400">
 
-<img src="https://github.com/slayyyyyyy/IntroductionToRobotics/assets/104028747/8b91ea31-9740-4b95-960c-7c8069eb9356" width = "450" height = "400">
+<img src="https://github.com/slayyyyyyy/IntroductionToRobotics/assets/104028747/8b91ea31-9740-4b95-960c-7c8069eb9356" width = "500" height = "400">
 
-<img src="https://github.com/slayyyyyyy/IntroductionToRobotics/assets/104028747/b735b11e-b80c-4960-b51f-75f646c04aa2" width = "450" height = "400">
+<img src="https://github.com/slayyyyyyy/IntroductionToRobotics/assets/104028747/b735b11e-b80c-4960-b51f-75f646c04aa2" width = "500" height = "400">
 
 
 A demonstration of how this works can be found here: [7 segments display drawing](https://drive.google.com/file/d/1xeKaUdoSJDZcFFWQKgC5CfdPgCAyIZon/view?usp=drive_link)
