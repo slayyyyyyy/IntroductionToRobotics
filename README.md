@@ -113,6 +113,7 @@ Tasks: <br/>
    – Button 1:  Start / pause. <br/>
    –Button  2:   Reset  (if  in  pause  mode).   Reset  saved  laps  (if  in  lap viewing mode). <br/>
    –Button 3:  Save lap (if in counting mode), cycle through last saved laps (up to 4 laps). <br/>
+   
   Workflow: <br/>
   1.  Display shows ”000.0”.  When pressing the Start button, the timer should start. <br/>
   2.  During timer counter, each press of the the lap button, it should save  that  timer’s  value  in  memory  (not  persistent,  it  is  OK  to  be deleted upon reset), up to 4 laps; pressing the 5th  time  should  override  the  1st  saved  one.   If  the  reset button is pressed while the timer works, nothing happens. If the pause button is pressed, the timer stops. <br/>
