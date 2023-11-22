@@ -163,7 +163,7 @@ The main menu structure includes 4 options and each of them opens a submenu: <br
      4.1 Manual Color Control, which allows you to input the RGB colors for the normal parameters color and the alert color for when Automatic Mode is OFF.
      4.2 Toggle Automatic ON/OFF, which allows you to toggle the Automatic Mode ON or OFF.
 
-The hardest task was to understand exactly what this system is supposed to do. Navigation through the menus was also tough to crack and I'm sure a lot of what I've done for this assignment could've been done way easier and it can definitely be improved, but in the end the system seems to be functional. The physical setup was quite simple this time:
+The hardest task was to understand exactly what this system is supposed to do. Navigation through the menus was also tough to crack and I'm sure a lot of what I've done for this assignment could've been done way easier and it can definitely be improved, but in the end the system seems to be functional. Something important to mention is that except for the data stored in EEPROM, all data will be overwritten when selecting the option (thresholds, RGB colors). The physical setup was quite simple this time:
 
 <img src="https://github.com/slayyyyyyy/IntroductionToRobotics/assets/104028747/a6882ab7-c892-4785-9d01-972b9c17f04a" width = "450" height = "400">
 
@@ -171,3 +171,4 @@ The hardest task was to understand exactly what this system is supposed to do. N
 
 <img src="https://github.com/slayyyyyyy/IntroductionToRobotics/assets/104028747/341f3de8-5f5a-43c7-b7f8-f73768ca3558" width = "450" height = "400">
 
+Demonstration of how the system works can be found here: [Pseudo-smart system](https://drive.google.com/drive/folders/10MRlVvZC56dq31HIOaNbjWOWX7YH696M)
