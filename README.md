@@ -10,6 +10,7 @@ End goal: building a real life BMO :)
 [Homework 3](#homework-3) <br/>
 [Homework 4](#homework-4) <br/>
 [Homework 5](#homework-5) <br/>
+[Homework 6](#homework-6) <br/>
  
 ## Homework 1
 
@@ -135,3 +136,38 @@ The physical setup is represented in the following pictures:
 A demonstration of how this works can be found here: [Stopwatch timer](https://drive.google.com/drive/folders/1nxeEOL7xyXRTufGuW4njaviQLgLu5JVY?usp=sharing)
 
 [Back to contents](#contents-)
+
+## Homework 6
+
+This assignment involves creating a pseudo-smart environment with sensors which logs the data collected from external stimuli.
+
+Component requirements: <br/>
+•Ultrasonic Sensor (HC-SR04) <br/>
+•LDR (Light-Dependent Resistor) <br/>
+•RGB LED <br/>
+•Resistors and wires as needed <br/>
+
+The main menu structure includes 4 options and each of them opens a submenu: <br/>
+  1. Sensor Settings which includes: </br>
+     1.1 Sensors Sampling Interval, which prompts you for a value between 1 and 10 (seconds) and saves it in EEPROM, used as a sampling rate for the sensors. </br>
+     1.2 Ultrasonic Alert Threshold, which prompts you with a threshold value for the ultrasonic sensor, which can be min or max. If the sensor readings are within the given parameter and the LED is in Automatic Mode, it will be <b>green</b> and if it exceeds the threshold, it should turn <b>red</b>. </br>
+     1.3 LDR Alert Threshold, which acts the same as the ultrasonic one, but for the LDR sensor. </br>
+     1.4 Back, which brings you back to the main menu. </br>
+  2. Reset Logger Data which will prompt you with a confirmation message and two options, YES/NO. Depending on the user input (1 or 2), you can reset all logged (saved) data or return to the main menu. </br>
+  3. System Status, which includes: </br>
+     3.1 Current Sensor Readings, which continously prints sensor readings, at the set sampling rate and exits at any user input, going back to the submenu. </br>
+     3.2 Current Sensor Settings, which displays the sampling rate and the sensor thresholds. </br>
+     3.3 Display Logged Data, which displays the last 10 sensor readings for all sensors, previously saved in EEPROM. </br>
+     3.4 Back, which brings you back to the main menu. </br>
+  4.  RGB LED Control, which includes: </br>
+     4.1 Manual Color Control, which allows you to input the RGB colors for the normal parameters color and the alert color for when Automatic Mode is OFF.
+     4.2 Toggle Automatic ON/OFF, which allows you to toggle the Automatic Mode ON or OFF.
+
+The hardest task was to understand exactly what this system is supposed to do. Navigation through the menus was also tough to crack and I'm sure a lot of what I've done for this assignment could've been done way easier and it can definitely be improved, but in the end the system seems to be functional. The physical setup was quite simple this time:
+
+<img src="https://github.com/slayyyyyyy/IntroductionToRobotics/assets/104028747/a6882ab7-c892-4785-9d01-972b9c17f04a" width = "450" height = "400">
+
+<img src="https://github.com/slayyyyyyy/IntroductionToRobotics/assets/104028747/6f2010f8-1dfc-40db-bf86-4389e1421cc5" width = "450" height = "400">
+
+<img src="https://github.com/slayyyyyyy/IntroductionToRobotics/assets/104028747/341f3de8-5f5a-43c7-b7f8-f73768ca3558" width = "450" height = "400">
+
