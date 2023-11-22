@@ -160,8 +160,9 @@ The main menu structure includes 4 options and each of them opens a submenu: <br
      3.3 Display Logged Data, which displays the last 10 sensor readings for all sensors, previously saved in EEPROM. </br>
      3.4 Back, which brings you back to the main menu. </br>
   4.  RGB LED Control, which includes: </br>
-     4.1 Manual Color Control, which allows you to input the RGB colors for the normal parameters color and the alert color for when Automatic Mode is OFF.
-     4.2 Toggle Automatic ON/OFF, which allows you to toggle the Automatic Mode ON or OFF.
+     4.1 Manual Color Control, which allows you to input the RGB colors for the normal parameters color and the alert color for when Automatic Mode is OFF.</br>
+     4.2 Toggle Automatic ON/OFF, which allows you to toggle the Automatic Mode ON or OFF. </br>
+     3.4 Back, which brings you back to the main menu. </br>
 
 The hardest task was to understand exactly what this system is supposed to do. Navigation through the menus was also tough to crack and I'm sure a lot of what I've done for this assignment could've been done way easier and it can definitely be improved, but in the end the system seems to be functional. Something important to mention is that except for the data stored in EEPROM, all data will be overwritten when selecting the option (thresholds, RGB colors). The physical setup was quite simple this time:
 
