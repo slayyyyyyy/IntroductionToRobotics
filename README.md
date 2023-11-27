@@ -11,6 +11,7 @@ End goal: building a real life BMO :)
 [Homework 4](#homework-4) <br/>
 [Homework 5](#homework-5) <br/>
 [Homework 6](#homework-6) <br/>
+[Homework 7](#homework-7) <br/>
  
 ## Homework 1
 
@@ -175,3 +176,16 @@ The hardest task was to understand exactly what this system is supposed to do. N
 Demonstration of how the system works can be found here: [Pseudo-smart system](https://drive.google.com/drive/folders/10MRlVvZC56dq31HIOaNbjWOWX7YH696M)
 
 [Back to contents](#contents-)
+
+## Homework 7
+
+This assignment involved creating a mini game on an 8x8 matrix that can be played with a joystick. The game must have at least 3 types of elements:  player (blinks slowly),  bombs/bullets (blinks fast),  wall (doesn’t blink).  The basic idea is that it generates walls on the map (50% - 75% of the map) and then you move around with the player and destroy them. You can do it Bomberman style or terminator-tanks style. I choose to have a player that shoots bullets at the walls, destroying them if they're in the given range which can be adjusted in the code. That means, for example, if the player stands in front of 2 consecutive walls and the shooting range is 3, then the player will destroy both walls with only one bullet.
+
+Component requirements: <br/>
+•Joystick <br/>
+•8x8 LED Matrix <br/>
+•MAX7219 <br/>
+•Resistors and wires as needed <br/>
+
+SOURCE MENTION: Part of the code used (especially the one regarding player movement) comes directly from the lab and I only adjusted it to suit my preferences. </br> 
+POSSIBLE ISSUE: When navigating the map, one can find that there are no borders, meaning that when they reach the edge of the map, if moving in the same direction, they'll emerge from the opposite edge (e.g. if the player exceeds the UP 'border', they will emerge next from the DOWN 'border'). While someone can consider this a bug, I consider it a feature (I didn't try to change it) :)
