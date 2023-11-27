@@ -38,8 +38,10 @@ byte bulletXPos;
 byte bulletYPos;
 const int maxBulletRange = 2;
 int bulletRange = 0;
-const int bulletMoveDelay = 150; // Change the delay time for bullet movement (in milliseconds)
+const int bulletMoveDelay = 150; 
 unsigned long previousBulletMoveMillis = 0;
+const int bulletBlinkDelay = 50; 
+unsigned long previousBulletBlinkMillis = 0;
 
 
 enum Direction { NONE, UP, DOWN, LEFT, RIGHT };
@@ -74,7 +76,8 @@ void setup() {
 
 
 void loop() {
-  blinkCurrentPosition();
+  markPlayer();
+  markBullet();
 
   if (millis() - lastMoved > movementDelay) {
     updatePlayerPosition();
@@ -152,7 +155,7 @@ void updatePlayerPosition() {
   }
 }
 
-void blinkCurrentPosition() {
+void markPlayer() {
   static bool isOn = true; 
   unsigned long currentBlinkMillis = millis();
   
@@ -161,6 +164,18 @@ void blinkCurrentPosition() {
     gameMap[xPos][yPos] = isOn ? 0 : 1;
     mapChanged = true;
     isOn = !isOn;
+  }
+}
+
+void markBullet() {
+  static bool isBulletFired = true;
+  unsigned long currentBulletBlinkMillis = millis();
+
+  if (bulletFired && (currentBulletBlinkMillis - previousBulletBlinkMillis >= bulletBlinkDelay)) {
+    previousBulletBlinkMillis = currentBulletBlinkMillis;
+    gameMap[bulletXPos][bulletYPos] = isBulletFired ? 0 : 1;
+    mapChanged = true;
+    isBulletFired = !isBulletFired;
   }
 }
 
