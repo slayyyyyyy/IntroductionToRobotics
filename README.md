@@ -189,3 +189,14 @@ Component requirements: <br/>
 
 SOURCE MENTION: Part of the code used (especially the one regarding player movement) comes directly from the lab and I only adjusted it to suit my preferences. </br> 
 POSSIBLE ISSUE: When navigating the map, one can find that there are no borders, meaning that when they reach the edge of the map, if moving in the same direction, they'll emerge from the opposite edge (e.g. if the player exceeds the UP 'border', they will emerge next from the DOWN 'border'). While someone can consider this a bug, I consider it a feature (I didn't try to change it) :)
+
+The physical setup:
+
+<img src="https://github.com/slayyyyyyy/IntroductionToRobotics/assets/104028747/94487a6f-6d5f-476c-aaab-49b146e46b06" width = "450" height = "400">
+
+<img src="https://github.com/slayyyyyyy/IntroductionToRobotics/assets/104028747/341f3de8-5f5a-43c7-b7f8-f73768ca3558" width = "450" height = "400">
+
+<img src="https://github.com/slayyyyyyy/IntroductionToRobotics/assets/104028747/341f3de8-5f5a-43c7-b7f8-f73768ca3558" width = "450" height = "400">
+
+
+<img src="https://github.com/slayyyyyyy/IntroductionToRobotics/assets/104028747/458bd96a-12e6-487b-adbc-cfa39adbefd0" width = "450" height = "400">
