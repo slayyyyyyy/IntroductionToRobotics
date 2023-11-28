@@ -194,9 +194,8 @@ The physical setup:
 
 <img src="https://github.com/slayyyyyyy/IntroductionToRobotics/assets/104028747/94487a6f-6d5f-476c-aaab-49b146e46b06" width = "450" height = "400">
 
-<img src="https://github.com/slayyyyyyy/IntroductionToRobotics/assets/104028747/94487a6f-6d5f-476c-aaab-49b146e46b06" width = "450" height = "400">
+<img src="https://github.com/slayyyyyyy/IntroductionToRobotics/assets/104028747/c041280c-7066-4fb6-830e-9c45975754ac" width = "450" height = "400">
 
-<img src="https://github.com/slayyyyyyy/IntroductionToRobotics/assets/104028747/94487a6f-6d5f-476c-aaab-49b146e46b06" width = "450" height = "400">
-
+<img src="https://github.com/slayyyyyyy/IntroductionToRobotics/assets/104028747/578fa8a3-a37b-48b9-b75a-b50662d0ff87" width = "450" height = "400">
 
 <img src="https://github.com/slayyyyyyy/IntroductionToRobotics/assets/104028747/458bd96a-12e6-487b-adbc-cfa39adbefd0" width = "400" height = "400">
