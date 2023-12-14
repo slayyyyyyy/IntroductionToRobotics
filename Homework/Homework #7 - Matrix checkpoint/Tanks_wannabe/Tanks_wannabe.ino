@@ -41,7 +41,7 @@ bool wasPressed = false;
 const byte mapSize = 8;
 bool mapChanged = true;
 byte gameMap[mapSize][mapSize] =  { };
-int gameStarted = false;
+bool gameStarted = false;
 
 const int blinkDelay = 200;
 unsigned long previousBlinkMillis = 0;
@@ -61,8 +61,14 @@ unsigned long previousBulletBlinkMillis = 0;
 enum Direction { NONE, UP, DOWN, LEFT, RIGHT };
 Direction lastDirection = NONE;
 
+enum Menu { START_GAME, SETTINGS, LCD_BRIGHTNESS, MATRIX_BRIGHTNESS, ABOUT};
+Menu currentMenu = START_GAME;
+
 const char gameName[] = "Weedkiller";
+const char authorGithub[] = "slayyyyyyy";
+const char* menuNames[] = {"Start Game", "Settings", "LCD Brightness", "Matrix Brightness", "About"};
 int displayDuration = 3000;
+
 
 void generateRandomMap(byte generatedMap[mapSize][mapSize]) {
   // generates a new map with every reset
@@ -87,14 +93,22 @@ void setup() {
 
   lcd.begin(16,2);
   analogWrite(pwm,EEPROM.get(0,brightness));
-  displayGreeting(gameName);
 
-  gameMap[xPos][yPos] = 1; // lights up the initial player position
-  generateRandomMap(gameMap);
+  displayGreeting(gameName);
+  lcd.print(menuNames[currentMenu]);
+}
+
+void loop() {
+  if (gameStarted) {
+    lcd.clear();
+    gameLogic();
+  } else {
+    navigateMainMenu();
+  }
 }
 
 
-void loop() {
+void gameLogic(){
   markPlayer();
   markBullet();
 
@@ -124,6 +138,48 @@ void loop() {
   }
 }
 
+void navigateMainMenu(){
+  int yValue = analogRead(yPin);
+  bool confirmSelection = digitalRead(swPin) == LOW;
+  if(confirmSelection){
+    switch(currentMenu){
+      case START_GAME:
+        gameMap[xPos][yPos] = 1; // lights up the initial player position
+        generateRandomMap(gameMap);
+        gameStarted = true;
+        break;
+      case ABOUT:
+        displayAbout(authorGithub);
+        navigateMainMenu();
+        break;
+      case SETTINGS:
+        currentMenu = LCD_BRIGHTNESS;
+        navigateSettingsMenu();
+        break;
+    }
+    delay(250);
+  }
+  else {
+    if (yValue < minThreshold) {
+      // Move up in the menu
+      lcd.clear();
+      currentMenu = (currentMenu == SETTINGS) ? ABOUT : (Menu)(currentMenu - 1);
+      lcd.setCursor(0, 0);
+      lcd.print(menuNames[currentMenu]);
+      delay(250); // Debounce delay for menu navigation
+    } else if (yValue > maxThreshold) {
+      // Move down in the menu
+      lcd.clear();
+      currentMenu = (currentMenu == ABOUT) ? SETTINGS : (Menu)(currentMenu + 1);
+      lcd.setCursor(0, 0);
+      lcd.print(menuNames[currentMenu]);
+      delay(250); // Debounce delay for menu navigation
+    }
+  }
+}
+
+void navigateSettingsMenu(){
+}
 
 void updateMap() {
   //updates the matrix display every time needed
@@ -263,6 +319,30 @@ void displayGreeting(const char *message) {
     if (currentTime - startTime >= displayDuration) {
       displayActive = false;
       lcd.clear(); 
+    }
+  }
+}
+
+void displayAbout(const char *message) {
+  unsigned long startTime = millis();
+  bool displayActive = true;
+
+  lcd.clear(); 
+
+  int aboutPosition = (16 - strlen("Github user")) / 2;
+  lcd.setCursor(aboutPosition, 0);
+  lcd.print("Github user");
+
+  int authorPosition = (16 - strlen(message)) / 2;
+  lcd.setCursor(authorPosition, 1); 
+  lcd.print(message); 
+
+  while (displayActive) {
+    unsigned long currentTime = millis();
+    if (currentTime - startTime >= displayDuration) {
+      displayActive = false;
+      lcd.clear(); 
+      lcd.print(menuNames[currentMenu]);
     }
   }
 }
