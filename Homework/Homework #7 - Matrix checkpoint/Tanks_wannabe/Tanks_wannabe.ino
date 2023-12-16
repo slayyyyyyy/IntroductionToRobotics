@@ -11,7 +11,7 @@ const byte d7 = 4;
 const byte pwm = 3;
 
 LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
-int brightness = 0;
+int brightness = 100;
 
 const int dinPin = 12;
 const int clockPin = 11;
@@ -36,6 +36,7 @@ unsigned long lastMoved = 0;
 unsigned long lastButtonPressTime = 0;
 const unsigned long debounceDelay = 100;
 bool wasPressed = false;
+int buttonPresses = 0;
 
 
 const byte mapSize = 8;
@@ -61,14 +62,19 @@ unsigned long previousBulletBlinkMillis = 0;
 enum Direction { NONE, UP, DOWN, LEFT, RIGHT };
 Direction lastDirection = NONE;
 
-enum Menu { START_GAME, SETTINGS, LCD_BRIGHTNESS, MATRIX_BRIGHTNESS, ABOUT};
+enum Menu { START_GAME, SETTINGS, ABOUT};
 Menu currentMenu = START_GAME;
 bool insideMenuOption = false;
+
+enum Submenu { LCD_BRIGHTNESS, MATRIX_BRIGHTNESS};
+Submenu currentSubmenu = LCD_BRIGHTNESS;
 bool insideSubmenu = false;
+int submenuOptionNumber = 2;
 
 const char gameName[] = "Weedkiller";
 const char authorGithub[] = "slayyyyyyy";
-const char* menuNames[] = {"Start Game", "Settings", "LCD Brightness", "Game Brightness", "About"};
+const char* menuNames[] = {"Start Game", "Settings", "About"};
+const char* submenuNames[] = {"LCD Brightness", "Game Brightness"};
 int displayDuration = 3000;
 
 int lastDebounceTime = 0;
@@ -88,7 +94,6 @@ void generateRandomMap(byte generatedMap[mapSize][mapSize]) {
   }
 }
 
-
 void setup() {
   Serial.begin(9600);
   pinMode(swPin, INPUT_PULLUP);
@@ -98,7 +103,7 @@ void setup() {
   lc.clearDisplay(0); 
 
   lcd.begin(16,2);
-  analogWrite(pwm, 100);
+  analogWrite(pwm,EEPROM.get(0,brightness));
 
   displayGreeting(gameName);
   lcd.print(menuNames[currentMenu]);
@@ -166,10 +171,10 @@ bool buttonWasPressed() {
 }
 
 void navigateMainMenu(){
-  Serial.println("merge mainu");
+  Serial.println(currentMenu);
   int yValue = analogRead(yPin);
   if(buttonWasPressed()){
-    delay(250);
+    buttonPresses++;
     switch(currentMenu){
       case START_GAME:
         gameMap[xPos][yPos] = 1; // lights up the initial player position
@@ -177,84 +182,87 @@ void navigateMainMenu(){
         gameStarted = true;
         break;
       case ABOUT:
-        insideMenuOption = true;
         displayAbout(authorGithub);
         navigateMainMenu();
         break;
       case SETTINGS:
+        currentSubmenu = LCD_BRIGHTNESS;
         insideSubmenu = true;
         lcd.clear();
-        currentMenu = LCD_BRIGHTNESS;
-        lcd.print(menuNames[currentMenu]);
-        //setBrightness();
+        lcd.print(submenuNames[currentSubmenu]);
         navigateSettingsMenu();
-        //insideMenuOption = false;
-        //navigateSettingsMenu();
-        //break;
-    }
-  }
-  else {
-    if (yValue < minThreshold && !insideMenuOption) {
-      // Move up in the menu
-      insideMenuOption = true;
-      lcd.clear();
-      currentMenu = (currentMenu == LCD_BRIGHTNESS) ? MATRIX_BRIGHTNESS : (Menu)(currentMenu - 1);
-      lcd.setCursor(0, 0);
-      lcd.print(menuNames[currentMenu]);
-      delay(250); // Debounce delay for menu navigation
-    } else if (yValue > maxThreshold && !insideMenuOption) {
-      // Move down in the menu
-      insideMenuOption = true;
-      lcd.clear();
-      currentMenu = (currentMenu == MATRIX_BRIGHTNESS) ? LCD_BRIGHTNESS : (Menu)(currentMenu + 1);
-      lcd.setCursor(0, 0);
-      lcd.print(menuNames[currentMenu]);
-      delay(250); // Debounce delay for menu navigation
-    } else if (yValue > minThreshold && yValue < maxThreshold) {
-      insideMenuOption = false;
-    }
-  }
-}
-
-void navigateSettingsMenu(){
-  Serial.println("merge settings");
-  int yValue = analogRead(yPin);
-  if(buttonWasPressed()){
-    switch(currentMenu) {
-      case LCD_BRIGHTNESS:
-        insideMenuOption = true;
-        setBrightness();
-        lcd.noCursor();
-        break;
-      case MATRIX_BRIGHTNESS:
-        insideMenuOption = true;
-        setMatrixBrightness();
-        break;
-      default:
         break;
     }
     delay(250);
-  } else {
-    if (yValue < minThreshold && !insideMenuOption) { // Move up
-      if(currentMenu != LCD_BRIGHTNESS) {
-        currentMenu = LCD_BRIGHTNESS;
-        lcd.clear();
-        lcd.setCursor(0, 0);
-        lcd.print(menuNames[currentMenu]);
-        delay(250); // Debounce delay for menu navigation
-      }
-    } else if (yValue > maxThreshold && !insideMenuOption) { // Move down
-      if(currentMenu != MATRIX_BRIGHTNESS) {
-        currentMenu = MATRIX_BRIGHTNESS;
-        lcd.clear();
-        lcd.setCursor(0, 0);
-        lcd.print(menuNames[currentMenu]);
-        delay(250); // Debounce delay for menu navigation
-      }
-    }
+  }
+  else {
+    if (yValue < minThreshold) {
+    // Move up in the menu
+    lcd.clear();
+    currentMenu = (currentMenu == START_GAME) ? ABOUT : (Menu)(currentMenu - 1);
+    lcd.setCursor(0, 0);
+    lcd.print(menuNames[currentMenu]);
+    delay(250); // Debounce delay for menu navigation
+  } else if (yValue > maxThreshold) {
+    // Move down in the menu
+    lcd.clear();
+    currentMenu = (currentMenu == ABOUT) ? START_GAME : (Menu)(currentMenu + 1);
+    lcd.setCursor(0, 0);
+    lcd.print(menuNames[currentMenu]);
+    delay(250); // Debounce delay for menu navigation
+  }
+
+  // Loop around if going beyond the defined menu options
+  if (currentMenu < START_GAME) {
+    currentMenu = ABOUT;
+    lcd.clear();
+    lcd.setCursor(0, 0);
+    lcd.print(menuNames[currentMenu]);
+    delay(250);
+  } else if (currentMenu > ABOUT) {
+    currentMenu = START_GAME;
+    lcd.clear();
+    lcd.setCursor(0, 0);
+    lcd.print(menuNames[currentMenu]);
+    delay(250);
+  }
   }
 }
 
+
+void navigateSettingsMenu() {
+  while (insideSubmenu == true) {
+    int yValue = analogRead(yPin);
+
+    if (buttonWasPressed()) {
+      insideMenuOption = true;
+      switch (currentSubmenu) {
+        case LCD_BRIGHTNESS:
+          setBrightness();
+          break;
+        case MATRIX_BRIGHTNESS:
+          // Implement functionality for MATRIX_BRIGHTNESS option if needed
+          break;
+      }
+    }
+
+    delay(250);
+
+    if (yValue < minThreshold) { // Move up
+      currentSubmenu = (currentSubmenu + 1) % submenuOptionNumber;
+      lcd.clear();
+      lcd.setCursor(0, 0);
+      lcd.print(submenuNames[currentSubmenu]);
+      delay(250); // Debounce delay for menu navigation
+    } else if (yValue > maxThreshold) { // Move down
+      currentSubmenu = (currentSubmenu - 1 + submenuOptionNumber) % submenuOptionNumber;
+      lcd.clear();
+      lcd.setCursor(0, 0);
+      lcd.print(submenuNames[currentSubmenu]);
+      delay(250); // Debounce delay for menu navigation
+    }
+  }
+}
 
 void updateMap() {
   //updates the matrix display every time needed
@@ -418,7 +426,6 @@ void displayAbout(const char *message) {
       displayActive = false;
       lcd.clear(); 
       lcd.print(menuNames[currentMenu]);
-      insideMenuOption = false;
     }
   }
 }
