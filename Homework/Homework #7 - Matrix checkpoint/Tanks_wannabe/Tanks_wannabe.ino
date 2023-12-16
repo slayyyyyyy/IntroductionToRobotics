@@ -94,6 +94,14 @@ void generateRandomMap(byte generatedMap[mapSize][mapSize]) {
   }
 }
 
+void setMatrixState(byte state) {
+  for (int row = 0; row < mapSize; row++) {
+    for (int col = 0; col < mapSize; col++) {
+      lc.setLed(0, row, col, state); // Set LED state for each position in the matrix
+    }
+  }
+}
+
 void setup() {
   Serial.begin(9600);
   pinMode(swPin, INPUT_PULLUP);
@@ -243,7 +251,10 @@ void navigateSettingsMenu() {
           }
           break;
         case MATRIX_BRIGHTNESS:
-          // Implement functionality for MATRIX_BRIGHTNESS option if needed
+          if (buttonWasPressed()) {
+            insideMenuOption = true;
+            setMatrixBrightness();
+          }
           break;
       
     }
@@ -519,7 +530,7 @@ void saveMatrixBrightnessToEEPROM(int value) {
 void setMatrixBrightness() {
   lcd.clear();
   lcd.setCursor(0, 0);
-  lcd.print("Matrix Brightness");
+  lcd.print("Brightness Level");
   lcd.setCursor(1, 1);
   lcd.print("1  2  3  4  5");
 
@@ -529,45 +540,41 @@ void setMatrixBrightness() {
   lcd.setCursor(index, 1);
   lcd.cursor(); // Show the cursor
 
-  while (insideMenuOption) {
+  while (!selectedMatrixBrightness) {
+    setMatrixState(1);
     int xValue = analogRead(xPin);
-    if (xValue < minThreshold && index < 13){
+    if (xValue < minThreshold && index < 13) {
       lcd.setCursor(index + 3, 1);
       index += 3;
-    } else if (xValue > maxThreshold && index > 1){
+    } else if (xValue > maxThreshold && index > 1) {
       lcd.setCursor(index - 3, 1);
       index -= 3;
     }
 
-    if (digitalRead(swPin) == LOW && !selectedMatrixBrightness) {
+    if (buttonWasPressed()) {
       switch(index){
         case 1:
-          // Set matrix brightness level 1
-          // Implement your matrix brightness setting logic here
+          lc.setIntensity(0, matrixBrightnessLevels[0]);
           saveMatrixBrightnessToEEPROM(matrixBrightnessLevels[0]);
           selectedMatrixBrightness = true;
           break;
         case 4:
-          // Set matrix brightness level 2
-          // Implement your matrix brightness setting logic here
+          lc.setIntensity(0, matrixBrightnessLevels[1]);
           saveMatrixBrightnessToEEPROM(matrixBrightnessLevels[1]);
           selectedMatrixBrightness = true;
           break;
         case 7:
-          // Set matrix brightness level 3
-          // Implement your matrix brightness setting logic here
+          lc.setIntensity(0, matrixBrightnessLevels[2]);
           saveMatrixBrightnessToEEPROM(matrixBrightnessLevels[2]);
           selectedMatrixBrightness = true;
           break;
         case 10:
-          // Set matrix brightness level 4
-          // Implement your matrix brightness setting logic here
+          lc.setIntensity(0, matrixBrightnessLevels[3]);
           saveMatrixBrightnessToEEPROM(matrixBrightnessLevels[3]);
           selectedMatrixBrightness = true;
           break;
         case 13:
-          // Set matrix brightness level 5
-          // Implement your matrix brightness setting logic here
+          lc.setIntensity(0, matrixBrightnessLevels[4]);
           saveMatrixBrightnessToEEPROM(matrixBrightnessLevels[4]);
           selectedMatrixBrightness = true;
           break;
@@ -576,11 +583,11 @@ void setMatrixBrightness() {
           break;
       }
       delay(500); // Debounce delay
-      break; // Exit the loop after setting matrix brightness
+      //break; // Exit the loop after setting matrix brightness
     }
 
     delay(250); // Delay to avoid rapid cursor movement
   }
-  if (selectedMatrixBrightness)
     lcd.noCursor(); // Hide the cursor after selection
+    setMatrixState(0);
 }
