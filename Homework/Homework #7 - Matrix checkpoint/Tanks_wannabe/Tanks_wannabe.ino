@@ -190,7 +190,9 @@ void navigateMainMenu(){
         insideSubmenu = true;
         lcd.clear();
         lcd.print(submenuNames[currentSubmenu]);
+        if(insideSubmenu == true){
         navigateSettingsMenu();
+        }
         break;
     }
     delay(250);
@@ -233,17 +235,17 @@ void navigateMainMenu(){
 void navigateSettingsMenu() {
   while (insideSubmenu == true) {
     int yValue = analogRead(yPin);
-
-    if (buttonWasPressed()) {
-      insideMenuOption = true;
       switch (currentSubmenu) {
         case LCD_BRIGHTNESS:
-          setBrightness();
+          if (buttonWasPressed()) {
+            insideMenuOption = true;
+            setBrightness();
+          }
           break;
         case MATRIX_BRIGHTNESS:
           // Implement functionality for MATRIX_BRIGHTNESS option if needed
           break;
-      }
+      
     }
 
     delay(250);
@@ -452,59 +454,57 @@ void setBrightness() {
   lcd.setCursor(index, 1);
   lcd.cursor(); // Show the cursor
 
-  while (insideMenuOption) {
+  while (!selectedBrightness) {
     int xValue = analogRead(xPin);
-    if (xValue < minThreshold && index < 13){
+
+    if (xValue < minThreshold && index < 13) {
       lcd.setCursor(index + 3, 1);
       index += 3;
-    } else if (xValue > maxThreshold && index > 1){
+    } else if (xValue > maxThreshold && index > 1) {
       lcd.setCursor(index - 3, 1);
       index -= 3;
     }
 
-    if (digitalRead(swPin) == LOW && !selectedBrightness) {
-      switch(index){
+    if (buttonWasPressed()) {
+      switch (index) {
         case 1:
           analogWrite(pwm, brightnessLevels[0]);
           saveBrightnessToEEPROM(brightnessLevels[0]);
-          selectedBrightness == true;
-          insideMenuOption = false;
+          selectedBrightness = true;
           break;
         case 4:
           analogWrite(pwm, brightnessLevels[1]);
           saveBrightnessToEEPROM(brightnessLevels[1]);
-          selectedBrightness == true;
-          insideMenuOption = false;
+          selectedBrightness = true;
           break;
         case 7:
           analogWrite(pwm, brightnessLevels[2]);
           saveBrightnessToEEPROM(brightnessLevels[2]);
-          selectedBrightness == true;
-          insideMenuOption = false;
+          selectedBrightness = true;
           break;
         case 10:
           analogWrite(pwm, brightnessLevels[3]);
           saveBrightnessToEEPROM(brightnessLevels[3]);
-          selectedBrightness == true;
-          insideMenuOption = false;
+          selectedBrightness = true;
           break;
         case 13:
           analogWrite(pwm, brightnessLevels[4]);
           saveBrightnessToEEPROM(brightnessLevels[4]);
-          selectedBrightness == true;
-          insideMenuOption = false;
+          selectedBrightness = true;
           break;
         default:
           // Handle default case if needed
           break;
       }
       delay(500); // Debounce delay
-      break; // Exit the loop after setting brightness
     }
 
     delay(250); // Delay to avoid rapid cursor movement
   }
+
+  lcd.noCursor(); // Hide the cursor after selection
 }
+
 
 int loadMatrixBrightnessFromEEPROM() {
   int storedMatrixBrightness;
