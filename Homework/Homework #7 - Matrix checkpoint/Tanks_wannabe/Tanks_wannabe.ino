@@ -63,12 +63,17 @@ Direction lastDirection = NONE;
 
 enum Menu { START_GAME, SETTINGS, LCD_BRIGHTNESS, MATRIX_BRIGHTNESS, ABOUT};
 Menu currentMenu = START_GAME;
+bool insideMenuOption = false;
+bool insideSubmenu = false;
 
 const char gameName[] = "Weedkiller";
 const char authorGithub[] = "slayyyyyyy";
-const char* menuNames[] = {"Start Game", "Settings", "LCD Brightness", "Matrix Brightness", "About"};
+const char* menuNames[] = {"Start Game", "Settings", "LCD Brightness", "Game Brightness", "About"};
 int displayDuration = 3000;
 
+int lastDebounceTime = 0;
+int lastButtonState = HIGH;
+int buttonState = HIGH;
 
 void generateRandomMap(byte generatedMap[mapSize][mapSize]) {
   // generates a new map with every reset
@@ -85,6 +90,7 @@ void generateRandomMap(byte generatedMap[mapSize][mapSize]) {
 
 
 void setup() {
+  Serial.begin(9600);
   pinMode(swPin, INPUT_PULLUP);
 
   lc.shutdown(0, false);
@@ -92,7 +98,7 @@ void setup() {
   lc.clearDisplay(0); 
 
   lcd.begin(16,2);
-  analogWrite(pwm,EEPROM.get(0,brightness));
+  analogWrite(pwm, 100);
 
   displayGreeting(gameName);
   lcd.print(menuNames[currentMenu]);
@@ -138,10 +144,32 @@ void gameLogic(){
   }
 }
 
+bool buttonWasPressed() {
+  int reading = digitalRead(swPin);
+
+  if (reading != lastButtonState) {
+    lastDebounceTime = millis();
+  }
+
+  if ((millis() - lastDebounceTime) > debounceDelay) {
+    if (reading != buttonState) {
+      buttonState = reading;
+
+      if (buttonState == LOW) {
+        return true;
+      }
+    }
+  }
+
+  lastButtonState = reading;
+  return false;
+}
+
 void navigateMainMenu(){
+  Serial.println("merge mainu");
   int yValue = analogRead(yPin);
-  bool confirmSelection = digitalRead(swPin) == LOW;
-  if(confirmSelection){
+  if(buttonWasPressed()){
+    delay(250);
     switch(currentMenu){
       case START_GAME:
         gameMap[xPos][yPos] = 1; // lights up the initial player position
@@ -149,37 +177,84 @@ void navigateMainMenu(){
         gameStarted = true;
         break;
       case ABOUT:
+        insideMenuOption = true;
         displayAbout(authorGithub);
         navigateMainMenu();
         break;
       case SETTINGS:
+        insideSubmenu = true;
+        lcd.clear();
         currentMenu = LCD_BRIGHTNESS;
+        lcd.print(menuNames[currentMenu]);
+        //setBrightness();
         navigateSettingsMenu();
-        break;
+        //insideMenuOption = false;
+        //navigateSettingsMenu();
+        //break;
     }
-    delay(250);
   }
   else {
-    if (yValue < minThreshold) {
+    if (yValue < minThreshold && !insideMenuOption) {
       // Move up in the menu
+      insideMenuOption = true;
       lcd.clear();
-      currentMenu = (currentMenu == SETTINGS) ? ABOUT : (Menu)(currentMenu - 1);
+      currentMenu = (currentMenu == LCD_BRIGHTNESS) ? MATRIX_BRIGHTNESS : (Menu)(currentMenu - 1);
       lcd.setCursor(0, 0);
       lcd.print(menuNames[currentMenu]);
       delay(250); // Debounce delay for menu navigation
-    } else if (yValue > maxThreshold) {
+    } else if (yValue > maxThreshold && !insideMenuOption) {
       // Move down in the menu
+      insideMenuOption = true;
       lcd.clear();
-      currentMenu = (currentMenu == ABOUT) ? SETTINGS : (Menu)(currentMenu + 1);
+      currentMenu = (currentMenu == MATRIX_BRIGHTNESS) ? LCD_BRIGHTNESS : (Menu)(currentMenu + 1);
       lcd.setCursor(0, 0);
       lcd.print(menuNames[currentMenu]);
       delay(250); // Debounce delay for menu navigation
+    } else if (yValue > minThreshold && yValue < maxThreshold) {
+      insideMenuOption = false;
     }
   }
 }
 
 void navigateSettingsMenu(){
+  Serial.println("merge settings");
+  int yValue = analogRead(yPin);
+  if(buttonWasPressed()){
+    switch(currentMenu) {
+      case LCD_BRIGHTNESS:
+        insideMenuOption = true;
+        setBrightness();
+        lcd.noCursor();
+        break;
+      case MATRIX_BRIGHTNESS:
+        insideMenuOption = true;
+        setMatrixBrightness();
+        break;
+      default:
+        break;
+    }
+    delay(250);
+  } else {
+    if (yValue < minThreshold && !insideMenuOption) { // Move up
+      if(currentMenu != LCD_BRIGHTNESS) {
+        currentMenu = LCD_BRIGHTNESS;
+        lcd.clear();
+        lcd.setCursor(0, 0);
+        lcd.print(menuNames[currentMenu]);
+        delay(250); // Debounce delay for menu navigation
+      }
+    } else if (yValue > maxThreshold && !insideMenuOption) { // Move down
+      if(currentMenu != MATRIX_BRIGHTNESS) {
+        currentMenu = MATRIX_BRIGHTNESS;
+        lcd.clear();
+        lcd.setCursor(0, 0);
+        lcd.print(menuNames[currentMenu]);
+        delay(250); // Debounce delay for menu navigation
+      }
+    }
+  }
 }
+
 
 void updateMap() {
   //updates the matrix display every time needed
@@ -343,6 +418,162 @@ void displayAbout(const char *message) {
       displayActive = false;
       lcd.clear(); 
       lcd.print(menuNames[currentMenu]);
+      insideMenuOption = false;
     }
   }
+}
+
+int loadBrightnessFromEEPROM() {
+  int storedBrightness = EEPROM.get(0, brightness);
+  return storedBrightness;
+}
+
+void saveBrightnessToEEPROM(int value) {
+  EEPROM.put(0, value);
+}
+
+void setBrightness() {
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("Brightness Level");
+  lcd.setCursor(1, 1);
+  lcd.print("1  2  3  4  5");
+
+  bool selectedBrightness = false;
+  int brightnessLevels[] = {10, 25, 50, 75, 100}; // Corresponding brightness levels from 1 to 5
+  int index = 1; // Initial cursor position
+  lcd.setCursor(index, 1);
+  lcd.cursor(); // Show the cursor
+
+  while (insideMenuOption) {
+    int xValue = analogRead(xPin);
+    if (xValue < minThreshold && index < 13){
+      lcd.setCursor(index + 3, 1);
+      index += 3;
+    } else if (xValue > maxThreshold && index > 1){
+      lcd.setCursor(index - 3, 1);
+      index -= 3;
+    }
+
+    if (digitalRead(swPin) == LOW && !selectedBrightness) {
+      switch(index){
+        case 1:
+          analogWrite(pwm, brightnessLevels[0]);
+          saveBrightnessToEEPROM(brightnessLevels[0]);
+          selectedBrightness == true;
+          insideMenuOption = false;
+          break;
+        case 4:
+          analogWrite(pwm, brightnessLevels[1]);
+          saveBrightnessToEEPROM(brightnessLevels[1]);
+          selectedBrightness == true;
+          insideMenuOption = false;
+          break;
+        case 7:
+          analogWrite(pwm, brightnessLevels[2]);
+          saveBrightnessToEEPROM(brightnessLevels[2]);
+          selectedBrightness == true;
+          insideMenuOption = false;
+          break;
+        case 10:
+          analogWrite(pwm, brightnessLevels[3]);
+          saveBrightnessToEEPROM(brightnessLevels[3]);
+          selectedBrightness == true;
+          insideMenuOption = false;
+          break;
+        case 13:
+          analogWrite(pwm, brightnessLevels[4]);
+          saveBrightnessToEEPROM(brightnessLevels[4]);
+          selectedBrightness == true;
+          insideMenuOption = false;
+          break;
+        default:
+          // Handle default case if needed
+          break;
+      }
+      delay(500); // Debounce delay
+      break; // Exit the loop after setting brightness
+    }
+
+    delay(250); // Delay to avoid rapid cursor movement
+  }
+}
+
+int loadMatrixBrightnessFromEEPROM() {
+  int storedMatrixBrightness;
+  EEPROM.get(10, storedMatrixBrightness); // Use a different memory address for matrix brightness
+  return storedMatrixBrightness;
+}
+
+void saveMatrixBrightnessToEEPROM(int value) {
+  EEPROM.put(10, value); // Use a different memory address for matrix brightness
+}
+
+void setMatrixBrightness() {
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("Matrix Brightness");
+  lcd.setCursor(1, 1);
+  lcd.print("1  2  3  4  5");
+
+  bool selectedMatrixBrightness = false;
+  int matrixBrightnessLevels[] = {2, 4, 6, 8, 10}; // Corresponding brightness levels from 1 to 5
+  int index = 1; // Initial cursor position
+  lcd.setCursor(index, 1);
+  lcd.cursor(); // Show the cursor
+
+  while (insideMenuOption) {
+    int xValue = analogRead(xPin);
+    if (xValue < minThreshold && index < 13){
+      lcd.setCursor(index + 3, 1);
+      index += 3;
+    } else if (xValue > maxThreshold && index > 1){
+      lcd.setCursor(index - 3, 1);
+      index -= 3;
+    }
+
+    if (digitalRead(swPin) == LOW && !selectedMatrixBrightness) {
+      switch(index){
+        case 1:
+          // Set matrix brightness level 1
+          // Implement your matrix brightness setting logic here
+          saveMatrixBrightnessToEEPROM(matrixBrightnessLevels[0]);
+          selectedMatrixBrightness = true;
+          break;
+        case 4:
+          // Set matrix brightness level 2
+          // Implement your matrix brightness setting logic here
+          saveMatrixBrightnessToEEPROM(matrixBrightnessLevels[1]);
+          selectedMatrixBrightness = true;
+          break;
+        case 7:
+          // Set matrix brightness level 3
+          // Implement your matrix brightness setting logic here
+          saveMatrixBrightnessToEEPROM(matrixBrightnessLevels[2]);
+          selectedMatrixBrightness = true;
+          break;
+        case 10:
+          // Set matrix brightness level 4
+          // Implement your matrix brightness setting logic here
+          saveMatrixBrightnessToEEPROM(matrixBrightnessLevels[3]);
+          selectedMatrixBrightness = true;
+          break;
+        case 13:
+          // Set matrix brightness level 5
+          // Implement your matrix brightness setting logic here
+          saveMatrixBrightnessToEEPROM(matrixBrightnessLevels[4]);
+          selectedMatrixBrightness = true;
+          break;
+        default:
+          // Handle default case if needed
+          break;
+      }
+      delay(500); // Debounce delay
+      break; // Exit the loop after setting matrix brightness
+    }
+
+    delay(250); // Delay to avoid rapid cursor movement
+  }
+  if (selectedMatrixBrightness)
+    lcd.noCursor(); // Hide the cursor after selection
 }
