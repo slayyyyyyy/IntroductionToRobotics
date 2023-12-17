@@ -71,8 +71,10 @@ Submenu currentSubmenu = LCD_BRIGHTNESS;
 bool insideSubmenu = false;
 int submenuOptionNumber = 2;
 
+
 const char gameName[] = "Weedkiller";
 const char authorGithub[] = "slayyyyyyy";
+const char authorName[] = "Andreea Gurzu";
 const char* menuNames[] = {"Start Game", "Settings", "About"};
 const char* submenuNames[] = {"LCD Brightness", "Game Brightness"};
 int displayDuration = 3000;
@@ -190,7 +192,7 @@ void navigateMainMenu(){
         gameStarted = true;
         break;
       case ABOUT:
-        displayAbout(authorGithub);
+        displayAbout(gameName, authorName, authorGithub);
         navigateMainMenu();
         break;
       case SETTINGS:
@@ -419,21 +421,41 @@ void displayGreeting(const char *message) {
   }
 }
 
-void displayAbout(const char *message) {
+void displayAbout(const char *gameName, const char *authorName, const char *authorGithub) {
   unsigned long startTime = millis();
   bool displayActive = true;
 
   lcd.clear(); 
 
-  int aboutPosition = (16 - strlen("Github user")) / 2;
-  lcd.setCursor(aboutPosition, 0);
-  lcd.print("Github user");
+  int gameNamePosition = (16 - strlen("Game Name")) / 2; // Starting position for Game Name
+  lcd.setCursor(gameNamePosition, 0);
+  lcd.print("Game Name:");
+  int namePosition = (16 - strlen(gameName)) / 2;
+  lcd.setCursor(namePosition, 1);
+  lcd.print(gameName);
+  delay(1500);
+  lcd.clear();
 
-  int authorPosition = (16 - strlen(message)) / 2;
-  lcd.setCursor(authorPosition, 1); 
-  lcd.print(message); 
+  int authorPosition = (16 - strlen("Author:")) / 2; // Starting position for Author Name
+  lcd.setCursor(authorPosition, 0); 
+  lcd.print("Author:"); 
+  int authorNamePosition = (16 - strlen(authorName)) / 2;
+  lcd.setCursor(authorNamePosition, 1);
+  lcd.print(authorName);
+  delay(1500);
+  lcd.clear();
 
-  while (displayActive) {
+  int githubPosition = (16 - strlen("Github:")) / 2; // Starting position for Author Name
+  lcd.setCursor(githubPosition, 0); 
+  lcd.print("Github:"); 
+  int githubUserPosition = (16 - strlen(authorGithub)) / 2;
+  lcd.setCursor(githubUserPosition, 1);
+  lcd.print(authorGithub);
+  delay(1500);
+  lcd.clear();
+
+
+   while (displayActive) {
     unsigned long currentTime = millis();
     if (currentTime - startTime >= displayDuration) {
       displayActive = false;
@@ -442,6 +464,8 @@ void displayAbout(const char *message) {
     }
   }
 }
+
+
 
 int loadBrightnessFromEEPROM() {
   int storedBrightness = EEPROM.get(0, brightness);
