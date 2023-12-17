@@ -92,6 +92,7 @@ const byte firstLevel[mapSize][mapSize] ={
   {0, 0, 0, 0, 0, 0, 0, 0},
   {0, 0, 0, 0, 0, 0, 0, 0}
 };
+int level = 1;
 
 void generateFirstLevelMap(byte generatedMap[mapSize][mapSize]) {
   for (int row = 0; row < mapSize; row++) {
@@ -139,13 +140,24 @@ void setup() {
 
 void loop() {
   if (gameStarted) {
-    lcd.clear();
+    printTimeAndLevel();
     gameLogic();
   } else {
     navigateMainMenu();
   }
 }
 
+void printTimeAndLevel(){
+    lcd.clear();
+    lcd.setCursor(0,0);
+    lcd.print("Time:");
+    lcd.setCursor(strlen("Time:"), 0);
+    lcd.print(millis()/1000);
+    lcd.setCursor(0,1);
+    lcd.print("Level:");
+    lcd.setCursor(strlen("Level:"), 1);
+    lcd.print(level);
+}
 
 void gameLogic(){
   markPlayer();
