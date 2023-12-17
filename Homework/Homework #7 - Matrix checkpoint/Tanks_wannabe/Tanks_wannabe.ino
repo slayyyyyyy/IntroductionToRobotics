@@ -177,10 +177,10 @@ void gameLogic(){
   }
 
   if(checkGameEnded()){
-    displayGameEndedMessage();
     gameStarted = false;
     xPos = 4;
     yPos = 4;
+    displayGameEndedMessage();
   }
 }
 
