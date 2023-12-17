@@ -83,6 +83,25 @@ int lastDebounceTime = 0;
 int lastButtonState = HIGH;
 int buttonState = HIGH;
 
+const byte firstLevel[mapSize][mapSize] ={
+  {0, 1, 0, 0, 1, 1, 0, 0},
+  {0, 0, 0, 0, 0, 0, 0, 0},
+  {0, 0, 0, 0, 0, 0, 0, 0},
+  {0, 0, 0, 0, 0, 0, 0, 0},
+  {0, 0, 0, 0, 0, 0, 0, 0},
+  {0, 0, 0, 0, 0, 0, 0, 0},
+  {0, 0, 0, 0, 0, 0, 0, 0},
+  {0, 0, 0, 0, 0, 0, 0, 0}
+};
+
+void generateFirstLevelMap(byte generatedMap[mapSize][mapSize]) {
+  for (int row = 0; row < mapSize; row++) {
+    for (int col = 0; col < mapSize; col++) {
+      generatedMap[row][col] = firstLevel[row][col];
+    }
+  }
+}
+
 void generateRandomMap(byte generatedMap[mapSize][mapSize]) {
   // generates a new map with every reset
   randomSeed(analogRead(0) + millis()); // used so it doesn't generate the same numbers each time
@@ -157,6 +176,10 @@ void gameLogic(){
     moveBullet();
     updateMap();
   }
+
+  if(checkGameEnded()){
+    displayGameEndedMessage();
+  }
 }
 
 bool buttonWasPressed() {
@@ -188,7 +211,7 @@ void navigateMainMenu(){
     switch(currentMenu){
       case START_GAME:
         gameMap[xPos][yPos] = 1; // lights up the initial player position
-        generateRandomMap(gameMap);
+        generateFirstLevelMap(gameMap);
         gameStarted = true;
         break;
       case ABOUT:
@@ -326,6 +349,10 @@ void updatePlayerPosition() {
     gameMap[xLastPos][yLastPos] = 0; // turn off the last position
     gameMap[xPos][yPos] = 1; // turn on the new position
   }
+
+  if(checkGameEnded()){
+    gameMap[xLastPos][yLastPos] = 0;
+  }
 }
 
 void markPlayer() {
@@ -397,6 +424,44 @@ void moveBullet() {
     }
   }
 }
+
+bool checkGameEnded() {
+  // Iterate through the game map and check if any LED other than the player's position is still on
+  for (int row = 0; row < mapSize; row++) {
+    for (int col = 0; col < mapSize; col++) {
+      if (!(row == xPos && col == yPos) && gameMap[row][col] == 1) {
+        return false; // Game is not over yet
+      }
+    }
+  }
+  return true; // Game over condition: all LEDs are off except the player's position
+}
+
+void displayGameEndedMessage() {
+  lcd.clear();
+  int congratsPosition = (16 - strlen("Congrats, you")) / 2;
+  lcd.setCursor(congratsPosition, 0);
+  lcd.print("Congrats, you");
+  int gameBeatenPosition = (16 - strlen("beat the game!")) / 2;
+  lcd.setCursor(gameBeatenPosition, 1);
+  lcd.print("beat the game!");
+
+  bool returnToMenu = false;
+
+  while (!returnToMenu) {
+    // Check if the button is pressed
+    if (buttonWasPressed()) {
+      returnToMenu = true; // Set the flag to exit the loop and return to the main menu
+      lcd.clear();
+    }
+  }
+
+  // Clear the LCD and display the main menu again
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print(menuNames[currentMenu]);
+}
+
 
 void displayGreeting(const char *message) {
   unsigned long startTime = millis();
