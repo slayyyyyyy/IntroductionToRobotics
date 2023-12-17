@@ -36,7 +36,6 @@ unsigned long lastMoved = 0;
 unsigned long lastButtonPressTime = 0;
 const unsigned long debounceDelay = 100;
 bool wasPressed = false;
-int buttonPresses = 0;
 
 
 const byte mapSize = 8;
@@ -179,6 +178,9 @@ void gameLogic(){
 
   if(checkGameEnded()){
     displayGameEndedMessage();
+    gameStarted = false;
+    xPos = 4;
+    yPos = 4;
   }
 }
 
@@ -207,7 +209,6 @@ void navigateMainMenu(){
   Serial.println(currentMenu);
   int yValue = analogRead(yPin);
   if(buttonWasPressed()){
-    buttonPresses++;
     switch(currentMenu){
       case START_GAME:
         gameMap[xPos][yPos] = 1; // lights up the initial player position
@@ -349,7 +350,6 @@ void updatePlayerPosition() {
     gameMap[xLastPos][yLastPos] = 0; // turn off the last position
     gameMap[xPos][yPos] = 1; // turn on the new position
   }
-
   if(checkGameEnded()){
     gameMap[xLastPos][yLastPos] = 0;
   }
@@ -448,19 +448,27 @@ void displayGameEndedMessage() {
 
   bool returnToMenu = false;
 
+  unsigned long startMillis = millis(); // Record the start time
+
   while (!returnToMenu) {
-    // Check if the button is pressed
     if (buttonWasPressed()) {
       returnToMenu = true; // Set the flag to exit the loop and return to the main menu
       lcd.clear();
+      lcd.setCursor(0, 0);
+      lcd.print(menuNames[currentMenu]);
+    }
+
+    // Check if the elapsed time exceeds the displayDuration
+    if (millis() - startMillis >= displayDuration) {
+      returnToMenu = true; // Exit the loop after displayDuration is elapsed
+      lcd.clear();
+      lcd.setCursor(0, 0);
+      lcd.print(menuNames[currentMenu]);
     }
   }
-
-  // Clear the LCD and display the main menu again
-  lcd.clear();
-  lcd.setCursor(0, 0);
-  lcd.print(menuNames[currentMenu]);
 }
+
+
 
 
 void displayGreeting(const char *message) {
