@@ -83,7 +83,7 @@ int lastButtonState = HIGH;
 int buttonState = HIGH;
 
 const byte firstLevel[mapSize][mapSize] ={
-  {0, 1, 0, 0, 1, 1, 0, 0},
+  {1, 1, 0, 0, 1, 1, 0, 0},
   {0, 0, 0, 0, 0, 0, 0, 0},
   {0, 0, 0, 0, 0, 0, 0, 0},
   {0, 0, 0, 0, 0, 0, 0, 0},
@@ -181,6 +181,7 @@ void gameLogic(){
     xPos = 4;
     yPos = 4;
     displayGameEndedMessage();
+    bulletFired = false;
   }
 }
 
